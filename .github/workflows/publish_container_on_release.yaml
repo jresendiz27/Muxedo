@@ -13,6 +13,6 @@ jobs:
         uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.MUXEDO_USERNAME }}
-          password: ${{ secrets.MUXEDO_DOCKER_HUB_PASSWORD }}
+          password: ${{ secrets.MUXEDO_DOCKER_HUB_TOKEN }}
           repository: jresendiz27/muxedo
           tag_with_ref: true
