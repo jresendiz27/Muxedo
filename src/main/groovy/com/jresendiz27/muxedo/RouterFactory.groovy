@@ -5,7 +5,6 @@ import groovy.util.logging.Log
 import io.vertx.core.Vertx
 import io.vertx.core.http.HttpServerRequest
 import io.vertx.core.http.HttpServerResponse
-import io.vertx.ext.web.Route
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
 
@@ -65,7 +64,7 @@ class RouterFactory {
     }
 
     Router routerFromDefinition(List<Map> definition) {
-        definition.stream().forEach(map -> {
+        definition.each { map ->
             router.route(map['path'] as String).handler({ RoutingContext ctx ->
                 List<String> errors = []
                 Map currentDefinition = map.clone() as Map
@@ -76,12 +75,12 @@ class RouterFactory {
                 executeValidations(request, currentDefinition)
                 setupPossibleResponses(response, currentDefinition)
             })
-        })
+        }
         return this.router
     }
 
     Router baseRouter() {
-        this.router.route().handler(routingContext -> {
+        this.router.route().handler({ routingContext ->
             HttpServerResponse response = routingContext.response();
             response.putHeader('Content-Type', 'text/plain')
             response.end("Muxedo says hello!")
