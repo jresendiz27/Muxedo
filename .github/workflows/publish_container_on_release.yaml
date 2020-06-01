@@ -1,4 +1,4 @@
-name: Publish Muxedo Docker Image
+name: Publish_Muxedo_Docker_Image
 on:
   release:
     types: [published]

@@ -1,4 +1,4 @@
-name: Run Gradle Check
+name: Run_Gradle_Check
 
 on:
   push:
