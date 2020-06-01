@@ -22,11 +22,11 @@ class RouterFactory {
         this.random = new Random()
     }
 
-    Router create(List<Map> routesDefinition = []) {
+    Router create(Map routesDefinition = [:]) {
         if (!routesDefinition) {
             return baseRouter()
         } else {
-            return routerFromDefinition(routesDefinition)
+            return routerFromDefinition(routesDefinition.paths as List<Map>)
         }
     }
 
@@ -69,10 +69,11 @@ class RouterFactory {
             router.route(map['path'] as String).handler({ RoutingContext ctx ->
                 List<String> errors = []
                 Map currentDefinition = map.clone() as Map
-                HttpServerRequest httpServerRequest = ctx.request()
+                HttpServerRequest request = ctx.request()
                 HttpServerResponse response = ctx.response()
+                log.info("Processing request for path: ${request.path()}")
 
-                executeValidations(httpServerRequest, currentDefinition)
+                executeValidations(request, currentDefinition)
                 setupPossibleResponses(response, currentDefinition)
             })
         })
