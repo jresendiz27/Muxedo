@@ -1,0 +1,61 @@
+{
+  "port": 7077,
+  "host": "0.0.0.0",
+  "paths": [
+    {
+      "path": "/hello/world",
+      "methods": [
+        "PUT",
+        "GET"
+      ],
+      "expectedResponses": [
+        {
+          "code": 200,
+          "expectedHeaders": [
+            "Content-Type"
+          ],
+          "body": "This is a mocked body 1",
+          "responseHeaders": {
+            "Content-Type": "text/plain"
+          }
+        }
+      ]
+    },
+    {
+      "path": "/path/:param1/:param2",
+      "methods": [
+        "POST",
+        "GET",
+        "PUT"
+      ],
+      "uriParams": [
+        {
+          "name": "param1",
+          "type": "Integer"
+        }
+      ],
+      "expectedHeaders": [
+        "Content-Type",
+        "Authorization"
+      ],
+      "expectedResponses": [
+        {
+          "code": 200,
+          "responseWeight": 50,
+          "body": "MockedResponse for path",
+          "responseHeaders": {
+            "Content-Type": "text/plain"
+          }
+        },
+        {
+          "code": 403,
+          "responseWeight": 50,
+          "body": "FailedResponse for path",
+          "responseHeaders": {
+            "Content-Type": "text/plain22222"
+          }
+        }
+      ]
+    }
+  ]
+}
